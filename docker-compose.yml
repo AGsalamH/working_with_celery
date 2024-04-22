@@ -1,0 +1,43 @@
+version: '3.9'
+
+services:
+  django: &django
+    container_name: django
+    build:
+      dockerfile: compose/django/Dockerfile
+      context: .
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - .:/app
+
+    depends_on:
+      - celery
+
+    command: >
+      sh -c "python manage.py migrate &&
+            python manage.py runserver 0.0.0.0:8000"
+
+
+  celery: 
+    <<: *django
+
+    container_name: celery
+    ports: []
+    depends_on:
+      - rabbitmq
+
+    command: celery -A core.celery_app worker --loglevel=info
+
+
+  rabbitmq:
+    image: rabbitmq
+    container_name: rabbitmq
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq/
+
+
+volumes:
+  rabbitmq_data:
