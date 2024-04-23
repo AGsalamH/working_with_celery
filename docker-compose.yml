@@ -29,7 +29,7 @@ services:
     depends_on:
       - rabbitmq
 
-    command: celery -A core.celery_app worker --loglevel=info
+    command: celery -A core.celery_app worker --loglevel=info -Q my_queue
 
 
   rabbitmq:

@@ -132,3 +132,27 @@ CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+
+
+# Creating Queues 
+CELERY_QUEUES = {
+    'my_queue': { # the name of the queue.
+        'exchange': 'default', # the name of the exchange to which messages for this queue will be sent.
+        'exchange_type': 'direct', # Direct exchange: Routes messages to queues based on the message's routing key.
+        'routing_key': 'my_queue' # the routing key used to route messages to this queue within the specified exchange.
+    },
+}
+
+
+# ----------- STATIC ROUTING (Specifying queue for each task explicitly)
+# CELERY_TASK_ROUTES = {
+#     'path.to.task': {
+#      'queue': 'queue_i_want_route_this_task_to',
+#     }    
+# }
+
+CELERY_TASK_ROUTES = {
+    'tasks_app.tasks.first_task': {
+     'queue': 'queue2',
+    }
+}
