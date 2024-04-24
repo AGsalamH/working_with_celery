@@ -114,7 +114,7 @@ After that we’re ready to create tasks and execute them inside our celery work
 
 ### TASK DYNAMIC ROUTES
 
-- Instead of configuring the `task_routes` per task, we can tell Celery to use a custom class instead by specifying the path to that class.
+- Instead of configuring the `task_routes` per task, we can tell Celery to use a custom class instead of specifying the path to that task.
 `CELERY_TASK_ROUTES = ‘myapp.task_router.TaskRouter’`
 
 ---
