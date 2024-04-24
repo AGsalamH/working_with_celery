@@ -1,5 +1,5 @@
 import time
-from celery import shared_task
+from celery import group, shared_task
 
 
 class TaskRouter:
@@ -17,3 +17,11 @@ class TaskRouter:
 def first_task():
     time.sleep(3)
     return 'First task completed!'
+
+@shared_task(name='my_queue:second_task')
+def second_task():
+    time.sleep(3)
+    return 'Second task completed!'
+
+
+tasks_group = group([first_task.s(), second_task.s()])
