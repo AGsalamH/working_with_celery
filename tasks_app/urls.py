@@ -4,5 +4,6 @@ from tasks_app import views as task_views
 
 urlpatterns = [
     path('1/', task_views.task1_view),
+    path('group/', task_views.group_view),
 
 ]
