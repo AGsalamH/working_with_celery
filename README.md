@@ -49,11 +49,14 @@ CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 ```
 
+💡  When using `django-celery-results` make sure to set `CELERY_RESULT_EXTENDED =True`. <br />
+it allows us to store task info (worker, queue, taskname, ...ETC) that are not stored by default.
+
 ---
 
 ### NOTES
 
-- Make sure to put this piece of code inside project.__init__.py
+- Make sure to put this piece of code inside `project/__init__.py`
     
     ```python
     # This will make sure the app is always imported when
@@ -173,4 +176,21 @@ CELERY_QUEUES = {
     },
 }
 ```
+---
+
+### TASK GROUPING
+- Celery group tasks allow you to execute multiple tasks concurrently in parallel. This is particularly useful when you have a set of independent tasks that can be performed simultaneously, improving the overall efficiency of your application.
+```python
+# lets say we have task1 and task2
+from celery import group 
+
+
+# lets create a group 
+task_group = group([task1.s(), task2.s()])
+
+# To run the group
+task_group.apply_async()
+```
+Voila! both tasks are called and executed simultaneously
+
 ---
