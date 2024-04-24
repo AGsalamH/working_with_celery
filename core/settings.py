@@ -151,8 +151,7 @@ CELERY_QUEUES = {
 #     }    
 # }
 
-CELERY_TASK_ROUTES = {
-    'tasks_app.tasks.first_task': {
-     'queue': 'queue2',
-    }
-}
+# ------------------ Dynamic Routing -----------------------------
+
+# we tell Celery to use a custom class instead of specifying the path.
+CELERY_TASK_ROUTES = ('tasks_app.tasks.TaskRouter',)
