@@ -145,3 +145,32 @@ class TaskRouter:
 💡 CELERY does NOT natively support task prioritizing when using Redis as a message broker,  We may consider using another broker such as : RabbitMQ
 
 </aside>
+Task prioritization is all about creating queues each one represents a level of priority then route tasks to these queues accordingly.
+
+1. Define Queues
+2. Configure workers to listen to these queues
+3. Route tasks
+
+We can create these tasks manually, or let celery create it for us `I prefer manually`
+
+```python
+# Creating Queues 
+CELERY_QUEUES = {
+    'high_priority': { # the name of the queue.
+        'exchange': '', # Default exchange.
+        'exchange_type': 'direct',
+        'routing_key': 'high_priority'
+    },    
+    'medium_priority': { # the name of the queue.
+        'exchange': '', # Default exchange.
+        'exchange_type': 'direct',
+        'routing_key': 'medium_priority'
+    },
+    'low_priority': { # the name of the queue.
+        'exchange': '', # Default exchange.
+        'exchange_type': 'direct',
+        'routing_key': 'low_priority'
+    },
+}
+```
+---
