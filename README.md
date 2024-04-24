@@ -39,7 +39,7 @@ app.autodiscover_tasks()
 CELERY_BROKER_URL = environ.get('CELERY_BROKER', 'redis://redis:6379/0')
 CELERY_RESULT_BACKEND = environ.get('CELERY_BACKEND', 'redis://redis:6379/0')
 # To use Django ORM as a CELERY_BACKEND
-# We need to pip `install install django-celery-results`
+# We need to `pip install django-celery-results`
 # then put django_celery_results in our installed_apps 
 # Finally set RESULT_BACKEND :down
 CELERY_RESULT_BACKEND = 'django-db' # use django orm as result backend
