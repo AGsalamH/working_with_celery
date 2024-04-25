@@ -192,3 +192,23 @@ task_group.apply_async()
 Voila! both tasks are called and executed simultaneously
 
 ---
+
+### TASK CHAINING
+- Allows us to take a task's output as another task's input (Chain)
+- Each task in a chain runs one after another using a predefined order.
+- To implement it
+```python
+# lets say we have task1 and task2
+from celery import chain 
+
+
+# lets create a chain
+# NOTE THAT: result of the prev task is passed to the next one as its first arg
+task_chain = chain(task1.s(), task2.s())
+
+# To run the chain
+task_chain.apply_async()
+```
+
+💡 The result of the first task will be the first `arg` of the second task, We have to recieve it in function declaration.
+<br />
