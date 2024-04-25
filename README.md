@@ -208,3 +208,13 @@ task_chain.apply_async()
 
 💡 The result of the first task will be the first `arg` of the second task, We have to recieve it in function declaration.
 <br />
+
+---
+
+### TASK MONITORING
+- First we need to `pip install flower`
+- Create a new container for it
+- Run it using `celery -A core.celery_app flower`
+- By default it listens on `PORT:5555`
+
+---
