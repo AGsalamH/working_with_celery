@@ -2,9 +2,6 @@
 
 --- 
 
-TODO:
-- MONITORING
-
 
 ### Initialization
 
