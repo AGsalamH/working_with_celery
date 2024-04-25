@@ -1,5 +1,5 @@
 import time
-from celery import group, shared_task
+from celery import group, chain, shared_task
 
 
 class TaskRouter:
@@ -25,3 +25,17 @@ def second_task():
 
 
 tasks_group = group([first_task.s(), second_task.s()])
+
+# ----------- CHAINING ----------------------
+
+@shared_task(name='my_queue:t1')
+def t1():
+    return 'Task 1'
+
+@shared_task(name='my_queue:t2')
+def t2(result):
+    return 'Task 2'
+
+
+
+task_chain = chain(t1.s(), t2.s())
