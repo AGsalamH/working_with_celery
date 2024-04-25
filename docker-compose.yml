@@ -38,6 +38,15 @@ services:
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq/
 
+  flower:
+    <<: *django
+    container_name: flower
+    depends_on:
+      - rabbitmq
+    ports:
+      - "5555:5555"
+
+    command: celery -A core.celery_app flower
 
 volumes:
   rabbitmq_data:
