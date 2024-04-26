@@ -218,3 +218,20 @@ task_chain.apply_async()
 - By default it listens on `PORT:5555`
 
 ---
+
+### TASK RATE_LIMIT
+- To implement rate limiting we could configure
+    - `CELERY_TASK_DEFAULT_RATE_LIMIT = '2/m'` This would be set globally on all tasks
+    - Replace `2/m` with your desired rate limit, following the format `tasks_per_timeframe`
+
+- Or we can specify a `rate_limit` option for each task individually
+- 💡 To add a rate limit directly to a task itself, you can use the `rate_limit` arg when defining the task with the `@shared_task` decorator. 
+    - This will override any default rate limit set in the Django settings for that specific task.
+```python
+@shared_task(rate_limit='1/m') # one task per minute
+def first_task():
+    time.sleep(3)
+    return 'First task completed!'
+``` 
+
+---

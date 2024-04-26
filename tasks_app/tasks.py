@@ -13,7 +13,7 @@ class TaskRouter:
         return {'queue': namespace}
 
 
-@shared_task(name='my_queue:first_task')
+@shared_task(name='my_queue:first_task', rate_limit='1/m') # one task per minute
 def first_task():
     time.sleep(3)
     return 'First task completed!'
